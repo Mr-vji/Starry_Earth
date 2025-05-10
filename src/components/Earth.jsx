@@ -28,7 +28,7 @@ export const Earth = ({ ...props }) => {
    earthNightTexture.anisotropy = 8;
 
    const earthSpecularCloudsTexture = useTexture(
-      "/public/textures/specularClouds.jpg"
+      "../textures/specularClouds.jpg"
    );
    earthSpecularCloudsTexture.anisotropy = 8;
 
