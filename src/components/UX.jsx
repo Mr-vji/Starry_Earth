@@ -17,7 +17,7 @@ export const UX = () => {
 
    const scroll = useScroll();
    const ref = useRef();
-   const [xPos, setXPos] = useState(-500);
+   const [xPos, setXPos] = useState(500);
 
    useFrame(() => {
       // scroll.offset is a value from 0 to 1
@@ -41,14 +41,12 @@ export const UX = () => {
             </p>
          </Section>
 
-         {/* ________________________________________________________________________________ */}
-
          {/* __________________________________________________________________________________________________ */}
 
          <motion.div
             className="flex mt-20 h-screen items-center justify-start px-6 md:px-20 py-20"
             style={{
-               x: xPos,
+               y: -xPos,
                position: "relative",
                top: 0,
                left: 0,
