@@ -1,14 +1,22 @@
 import {
    PresentationControls,
    shaderMaterial,
+   useScroll,
    useTexture,
 } from "@react-three/drei";
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import { button, useControls } from "leva";
 import { useRef, useState } from "react";
 import * as THREE from "three";
+import useStore from "./Store";
 
 export const Earth = ({ ...props }) => {
+   /* Zustand  */
+
+   const PHI = useStore((state) => state.PHI);
+   const THETA = useStore((state) => state.THETA);
+   const phi3 = useStore((state) => state.phi3);
+
    let uTime = 0;
 
    const [c, setC] = useState(1.0);
@@ -52,7 +60,7 @@ export const Earth = ({ ...props }) => {
          },
       });
 
-   const sunSpherical = new THREE.Spherical(1, Phi, Theta);
+   const sunSpherical = new THREE.Spherical(1, PHI, THETA);
    const sunDirection = new THREE.Vector3();
 
    const updateSun = () => {
@@ -62,12 +70,16 @@ export const Earth = ({ ...props }) => {
       earthMaterial.current.uSunDirection.copy(sunDirection);
    };
 
+   const scrollData = useScroll();
+
    /* UseFrame to animate... */
    useFrame((_, delta) => {
       uTime = delta;
 
-      mEarth.current.rotation.y += uTime * 0.1;
       updateSun();
+
+      // mEarth.current.rotation.y = scrollData.offset * Math.PI;
+      mEarth.current.rotation.y += uTime * 0.1;
    });
 
    return (
@@ -82,7 +94,7 @@ export const Earth = ({ ...props }) => {
                      uNightTexture={earthNightTexture}
                      uSpecularCloudsTexture={earthSpecularCloudsTexture}
                      uSunDirection={new THREE.Vector3(0, 0, 1)}
-                     uClouds={Clouds}
+                     uClouds={phi3}
                      uCloudsShow={c}
                      uAtmosphereDayColor={new THREE.Color(AtmosphereDayColor)}
                      uAtmosphereTwilightColor={
