@@ -15,7 +15,7 @@ function App() {
             <color attach="background" args={["black"]} />
             {/* <Experience /> */}
 
-            <ScrollControls pages={2} damping={0.8}>
+            <ScrollControls pages={2} damping={0.6}>
                <Experience />
                <Scroll html>
                   <UX />
