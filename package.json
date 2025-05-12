@@ -13,6 +13,8 @@
       "@react-three/fiber": "^9.0.4",
       "@react-three/postprocessing": "^3.0.4",
       "@tailwindcss/vite": "^4.0.9",
+      "framer-motion": "^12.11.0",
+      "framer-motion-3d": "^12.4.13",
       "leva": "^0.10.0",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",

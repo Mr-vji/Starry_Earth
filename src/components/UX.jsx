@@ -1,5 +1,8 @@
-import { useFrame } from "@react-three/fiber";
+import { motion } from "framer-motion";
 import useStore from "./Store";
+import { useScroll } from "@react-three/drei";
+import { useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
 
 export const UX = () => {
    /* Use - state  */
@@ -11,6 +14,17 @@ export const UX = () => {
 
    const phi3 = useStore((state) => state.phi3);
    const setPhi3 = useStore((state) => state.setPhi3);
+
+   const scroll = useScroll();
+   const ref = useRef();
+   const [xPos, setXPos] = useState(-500);
+
+   useFrame(() => {
+      // scroll.offset is a value from 0 to 1
+
+      const x = -800 + scroll.offset * 800;
+      setXPos(x);
+   });
 
    return (
       <main className="w-screen">
@@ -31,7 +45,16 @@ export const UX = () => {
 
          {/* __________________________________________________________________________________________________ */}
 
-         <div className="flex mt-20 h-screen items-center justify-start px-6 md:px-20 py-20">
+         <motion.div
+            className="flex mt-20 h-screen items-center justify-start px-6 md:px-20 py-20"
+            style={{
+               x: xPos,
+               position: "relative",
+               top: 0,
+               left: 0,
+               width: "100%",
+            }}
+         >
             {/* Card */}
             <div className="bg-white/10 backdrop-blur-lg p-6 sm:p-8 md:p-10 rounded-2xl shadow-xl w-full sm:w-11/12 md:w-2/3 lg:w-1/2 xl:w-1/3 text-white">
                <p className="mb-2 text-sm sm:text-base">
@@ -123,7 +146,7 @@ export const UX = () => {
                   SOUND GOOD? LET'S CONNECT!
                </button>
             </div>
-         </div>
+         </motion.div>
       </main>
    );
 };
